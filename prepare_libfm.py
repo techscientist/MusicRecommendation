@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 """
-@author: dell
+@author: dell weituo
 """
 
 import model
@@ -17,7 +17,7 @@ def to_libfm(examples, libfm_filename):
         user_id_feature = "%d:1" % (len(x_i)+user_id)
         libfm_file.write("%d %s %s\n" % (y_i, sp_vector(x_i), user_id_feature))
     libfm_file.close()
-    
+
 if __name__ == "__main__":
     import music
     train_examples = music.load_examples('data/train.pkl')

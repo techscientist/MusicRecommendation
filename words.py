@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 """
-@author: dell
+@author: dell weituo
 """
 
 import csv
@@ -27,7 +27,7 @@ def read_words(csv_filename):
     reader.next()  # ignore header
     for row in reader:
         artist_id   = int(row[0])
-        user_id     = int(row[1])  
+        user_id     = int(row[1])
         word = {}
         word['heard-of']            = get_int_attr(row[2])
         word['own-artist-music']    = get_int_attr(row[3])

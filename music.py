@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 """
-@author: ruonan
-This file load and parse raw csv data and dump them as binary formate so we can reload the parsed tables during the training. 
+@author: ruonan weituo
+This file load and parse raw csv data and dump them as binary formate so we can reload the parsed tables during the training.
 """
 
 import csv
@@ -106,9 +106,9 @@ def represent(example):
     vector.append(word['like-artist']/100.0)
     vector.extend([binary(word['w%d' % (j+1)]) for j in range(81)])
     vector.append(user_id/50928.0)
-    # The principled way is to use vector.extend(indicator(user_id, 50928)), 
+    # The principled way is to use vector.extend(indicator(user_id, 50928)),
     # but it would take too much memory.
-    
+
     index = 1
     pairs = []
     for v in vector:
@@ -118,9 +118,9 @@ def represent(example):
         else:
             pairs.append("%d:%f"%(index,v))
             index +=1
-            
+
     return pairs
-    
+
 def shuffle(data):
     import random
     l = len(data)
@@ -130,33 +130,33 @@ def shuffle(data):
         tmp = data[m]
         data[m] = data[n]
         data[n] = tmp
-        
+
 def save_libsvm(data_filename, examples):
-    
+
     shuffle(examples)
-        
+
     fileTest = open("%s.%s"%(data_filename,"test"),'w')
     fileTrain = open("%s.%s"%(data_filename,"train"),'w')
 
     count = 0
-    
+
     # write to libsvm file
-    for e in examples:                   
+    for e in examples:
         count += 1
         label =  str(e['rating'])
         features = represent(e)
-        
+
         sep_line = [label]
         sep_line.extend(features)
         sep_line.append('\n')
-        
+
         line = ' '.join(sep_line)
-        
+
         if count % 20 ==0:
             fileTest.write(line)
         else:
             fileTrain.write(line)
-        
+
     fileTest.close()
     fileTrain.close()
 
